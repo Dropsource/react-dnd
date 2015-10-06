@@ -26,11 +26,11 @@ const boxTarget = {
   }
 };
 
-@DropTarget([ItemTypes.BOX, 'another-box'], boxTarget, (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({ shallow: true })
-  })
+@DropTarget(ItemTypes.BOX_ALT, boxTarget, (connect, monitor) => ({
+      connectDropTarget: connect.dropTarget(),
+      isOver: monitor.isOver(),
+      isOverCurrent: monitor.isOver({ shallow: true })
+    })
 )
 export default class Dustbin extends Component {
   static propTypes = {
@@ -67,15 +67,15 @@ export default class Dustbin extends Component {
     styles.top = frame.top;
 
     return connectDropTarget(
-      <div style={styles}>
-        {hasDropped &&
+        <div style={styles}>
+          {hasDropped &&
           <span>dropped {hasDroppedOnChild && ' on child'}</span>
-        }
+          }
 
-        <div>
-          {this.props.children}
+          <div>
+            {this.props.children}
+          </div>
         </div>
-      </div>
     );
   }
 }
