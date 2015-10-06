@@ -1,4 +1,4 @@
-import { DragSource } from 'dnd-core';
+import { DragSource } from 'dropsource-dnd-core';
 import EnterLeaveCounter from '../utils/EnterLeaveCounter';
 import { isFirefox } from '../utils/BrowserDetector';
 import { getElementClientOffset, getEventClientOffset, getDragPreviewOffset } from '../utils/OffsetHelpers';

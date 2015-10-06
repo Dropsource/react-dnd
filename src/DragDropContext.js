@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DragDropManager } from 'dnd-core';
+import { DragDropManager } from 'dropsource-dnd-core';
 import invariant from 'invariant';
 import checkDecoratorArguments from './utils/checkDecoratorArguments';
 
