@@ -232,7 +232,10 @@ class HTML5Backend {
     return defaults(sourcePreviewNodeOptions || {}, {
       anchorX: 0.5,
       anchorY: 0.5,
-      captureDraggingState: false
+      captureDraggingState: false,
+      useOffset: false,
+      offsetX: 0,
+      offsetY: 0
     });
   }
 
@@ -348,15 +351,21 @@ class HTML5Backend {
         const sourceId = this.monitor.getSourceId();
         const sourceNode = this.sourceNodes[sourceId];
         const dragPreview = this.sourcePreviewNodes[sourceId] || sourceNode;
-        const { anchorX, anchorY } = this.getCurrentSourcePreviewNodeOptions();
-        const anchorPoint = { anchorX, anchorY };
-        const dragPreviewOffset = getDragPreviewOffset(
-          sourceNode,
-          dragPreview,
-          clientOffset,
-          anchorPoint
-        );
-        dataTransfer.setDragImage(dragPreview, dragPreviewOffset.x, dragPreviewOffset.y);
+        const { anchorX, anchorY, useOffset, offsetX, offsetY } = this.getCurrentSourcePreviewNodeOptions();
+
+        if (!useOffset) {
+          const anchorPoint = { anchorX, anchorY };
+          const dragPreviewOffset = getDragPreviewOffset(
+              sourceNode,
+              dragPreview,
+              clientOffset,
+              anchorPoint
+          );
+          dataTransfer.setDragImage(dragPreview, dragPreviewOffset.x, dragPreviewOffset.y);
+        }
+        else {
+          dataTransfer.setDragImage(dragPreview, offsetX, offsetY);
+        }
       }
 
       try {
