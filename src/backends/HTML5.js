@@ -117,6 +117,7 @@ class HTML5Backend {
     this.handleTopDropCapture = this.handleTopDropCapture.bind(this);
     this.handleSelectStart = this.handleSelectStart.bind(this);
     this.endDragIfSourceWasRemovedFromDOM = this.endDragIfSourceWasRemovedFromDOM.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   setup() {
@@ -137,6 +138,7 @@ class HTML5Backend {
     window.addEventListener('dragover', this.handleTopDragOverCapture, true);
     window.addEventListener('drop', this.handleTopDrop);
     window.addEventListener('drop', this.handleTopDropCapture, true);
+    window.addEventListener('scroll', this.handleScroll, true);
   }
 
   teardown() {
@@ -156,6 +158,7 @@ class HTML5Backend {
     window.removeEventListener('dragover', this.handleTopDragOverCapture, true);
     window.removeEventListener('drop', this.handleTopDrop);
     window.removeEventListener('drop', this.handleTopDropCapture, true);
+    window.removeEventListener('scroll', this.handleScroll, true);
 
     this.clearCurrentDragSourceNode();
   }
@@ -272,7 +275,9 @@ class HTML5Backend {
       return;
     }
 
-    this.actions.endDrag();
+    if (this.monitor.isDragging()) {
+      this.actions.endDrag();
+    }
     this.clearCurrentDragSourceNode();
   }
 
@@ -576,6 +581,12 @@ class HTML5Backend {
     if (typeof e.target.dragDrop === 'function') {
       e.preventDefault();
       e.target.dragDrop();
+    }
+  }
+
+  handleScroll(e) {
+    if (this.monitor.isDragging()) {
+      this.actions.endDrag();
     }
   }
 }
