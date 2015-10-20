@@ -1,6 +1,6 @@
 {
   "name": "dropsource-react-dnd",
-  "version": "1.1.8-ds.4",
+  "version": "1.1.8-ds.5",
   "description": "Drag and Drop for React",
   "main": "modules/index.js",
   "scripts": {
@@ -37,10 +37,10 @@
   },
   "homepage": "https://github.com/dropsource/react-dnd",
   "dependencies": {
-    "disposables": "^1.0.1",
+    "disposables": "1.0.1",
     "dropsource-dnd-core": "1.2.1-ds.1",
-    "invariant": "^2.1.0",
-    "lodash": "^3.10.1"
+    "invariant": "2.1.0",
+    "lodash": "3.10.1"
   },
   "peerDependencies": {
     "react": ">=0.13.0 <0.15.0 || ^0.14.0-rc1"
