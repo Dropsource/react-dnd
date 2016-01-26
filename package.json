@@ -1,6 +1,6 @@
 {
   "name": "dropsource-react-dnd",
-  "version": "1.1.8-ds.5",
+  "version": "1.1.8-ds.6",
   "description": "Drag and Drop for React",
   "main": "modules/index.js",
   "scripts": {
