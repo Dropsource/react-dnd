@@ -1,6 +1,6 @@
 {
   "name": "dropsource-react-dnd",
-  "version": "1.1.8-ds.6",
+  "version": "1.1.8-ds.7",
   "description": "Drag and Drop for React",
   "main": "modules/index.js",
   "scripts": {
@@ -38,7 +38,7 @@
   "homepage": "https://github.com/dropsource/react-dnd",
   "dependencies": {
     "disposables": "1.0.1",
-    "dropsource-dnd-core": "1.2.1-ds.2",
+    "dropsource-dnd-core": "1.2.1-ds.3",
     "invariant": "2.1.0",
     "lodash": "3.10.1"
   },
