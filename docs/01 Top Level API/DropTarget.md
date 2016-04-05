@@ -48,7 +48,7 @@ export default class MyComponent {
 
 * **`spec`**: Required. A plain JavaScript object with a few allowed methods on it. It describes how the drop target reacts to the drag and drop events. See the drop target specification described in detail in the next section.
 
-* **`collect`**: Required. The collecting function. It should return a plain object of the props to inject into your component. It receives two parameters: `monitor` and `connect`. Read the [overview](docs-overview.html) for an introduction to the monitors, the connectors, and the collecting function. See the collecting function described in detail after the next section.
+* **`collect`**: Required. The collecting function. It should return a plain object of the props to inject into your component. It receives two parameters: `connect` and `monitor`. Read the [overview](docs-overview.html) for an introduction to the monitors, the connectors, and the collecting function. See the collecting function described in detail after the next section.
 
 * **`options`**: Optional. A plain object. If some of the props to your component are not scalar (that is, are not primitive values or functions), specifying a custom `arePropsEqual(props, otherProps)` function inside the `options` object can improve the performance. Unless you have performance problems, don't worry about it.
 
@@ -115,7 +115,7 @@ If a drop target is nested in another drop target, both `hover()` and `drop()` b
 
 ### Handling Files and URLs
 
-When using the [`HTML5` backend](docs-html5-backend.html), you can handle the file drops just by registering a drop target for `HTML5Backend.NativeTypes.FILE` or `HTML5Backend.NativeTypes.URL` built-in types. Due to the browser security restrictions, `monitor.getItem()` does not provide any information about the files or the URLs until they are dropped.
+When using the [HTML5 backend](docs-html5-backend.html), you can handle the file drops just by registering a drop target for `HTML5Backend.NativeTypes.FILE` or `HTML5Backend.NativeTypes.URL` built-in types. Due to the browser security restrictions, `monitor.getItem()` does not provide any information about the files or the URLs until they are dropped.
 
 ### Example
 
@@ -124,6 +124,7 @@ Check out [the tutorial](docs-tutorial.html) for more real examples!
 -------------------
 ```js
 var React = require('react');
+var findDOMNode = require('react-dom').findDOMNode;
 var DropTarget = require('react-dnd').DropTarget;
 
 // Drag sources and drop targets only interact
@@ -239,6 +240,7 @@ module.exports = DropTarget(Types.CHESSPIECE, chessSquareTarget, collect)(ChessS
 -------------------
 ```js
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import { DropTarget } from 'react-dnd';
 
 // Drag sources and drop targets only interact
@@ -352,6 +354,7 @@ export default DropTarget(Types.CHESSPIECE, chessSquareTarget, collect)(ChessSqu
 -------------------
 ```js
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import { DropTarget } from 'react-dnd';
 
 // Drag sources and drop targets only interact

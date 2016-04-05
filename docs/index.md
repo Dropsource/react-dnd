@@ -4,9 +4,10 @@ React DnD is a set of React [higher-order](https://medium.com/@dan_abramov/mixin
 
 ```sh
 npm install --save react-dnd
+npm install --save react-dnd-html5-backend
 ```
 
-You can also grab the standalone build from [the repo's `dist` folder](https://github.com/gaearon/react-dnd/tree/master/dist).
+The second package instructs React DnD to use [the HTML5 drag and drop API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_and_drop) under the hood. You may choose to use a third-party backend instead, such as [the touch backend](https://github.com/yahoo/react-dnd-touch-backend).
 
 ## What's It Look Like?
 
@@ -186,7 +187,7 @@ React DnD does not export mixins, and works equally great with any components, w
 
 ## Touch Support
 
-React DnD does not work on mobile browsers yet because it currently relies on the HTML5 drag and drop API which no mobile browsers implement. However, because React DnD is extensible, it is possible to add touch support using a custom backend [with about 200 lines of code](https://github.com/gaearon/react-dnd/blob/ba8359ab3d7c76592357e078561d0e9d96afbcb0/src/backends/Touch.js). This is currently a proof of concept, but any contributions in this direction are welcome. Touch support will be a priority for the upcoming 1.x releases.
+For touch support, use React DnD with [the touch backend](https://github.com/yahoo/react-dnd-touch-backend) instead of the HTML5 backend.
 
 ## Non-Goals
 
@@ -196,6 +197,10 @@ React DnD gives you a set of powerful primitives, but it does not contain any re
 
 Issues and potential improvements are discussed on [Github](https://github.com/gaearon/react-dnd/issues).  
 The [Gitter room](https://gitter.im/gaearon/react-dnd) is another good place to get support.
+
+## Thanks
+
+Big thanks to [BrowserStack](https://www.browserstack.com) for letting the maintainers use their service to debug browser issues.
 
 ## License
 

@@ -1,8 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import shallowEqual from './utils/shallowEqual';
-import shallowEqualScalar from './utils/shallowEqualScalar';
 import invariant from 'invariant';
-import isPlainObject from 'lodash/lang/isPlainObject';
+import isPlainObject from 'lodash/isPlainObject';
 import checkDecoratorArguments from './utils/checkDecoratorArguments';
 import decorateHandler from './decorateHandler';
 import registerSource from './registerSource';

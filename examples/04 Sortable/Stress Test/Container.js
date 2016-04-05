@@ -3,7 +3,7 @@ import update from 'react/lib/update';
 import { name } from 'faker';
 import Card from './Card';
 import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd/modules/backends/HTML5';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 const style = {
   width: 400
@@ -55,8 +55,8 @@ export default class Container extends Component {
     cancelAnimationFrame(this.requestedFrame);
   }
 
-  scheduleUpdate(update) {
-    this.pendingUpdate = update;
+  scheduleUpdate(updateFn) {
+    this.pendingUpdateFn = updateFn;
 
     if (!this.requestedFrame) {
       this.requestedFrame = requestAnimationFrame(this.drawFrame);
@@ -64,10 +64,10 @@ export default class Container extends Component {
   }
 
   drawFrame() {
-    const nextState = update(this.state, this.pendingUpdate);
+    const nextState = update(this.state, this.pendingUpdateFn);
     this.setState(nextState);
 
-    this.pendingUpdate = null;
+    this.pendingUpdateFn = null;
     this.requestedFrame = null;
   }
 

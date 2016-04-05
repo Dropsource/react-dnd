@@ -28,7 +28,8 @@ class SourceBox extends Component {
     isDragging: PropTypes.bool.isRequired,
     color: PropTypes.string.isRequired,
     forbidDrag: PropTypes.bool.isRequired,
-    onToggleForbidDrag: PropTypes.func.isRequired
+    onToggleForbidDrag: PropTypes.func.isRequired,
+    children: PropTypes.node
   };
 
   render() {
@@ -43,6 +44,8 @@ class SourceBox extends Component {
     case Colors.BLUE:
       backgroundColor = 'lightblue';
       break;
+    default:
+      break;
     }
 
     return connectDragSource(
@@ -54,9 +57,8 @@ class SourceBox extends Component {
       }}>
         <input type='checkbox'
                checked={forbidDrag}
-               onChange={onToggleForbidDrag}>
-          <small>Forbid drag</small>
-        </input>
+               onChange={onToggleForbidDrag} />
+        <small>Forbid drag</small>
 
         {children}
       </div>

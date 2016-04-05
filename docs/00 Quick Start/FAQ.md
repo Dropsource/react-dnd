@@ -47,8 +47,16 @@ export default class MyComponent {
 
 ### Where do I get the precompiled version?
 
-Grab it from the [dist folder](https://github.com/gaearon/react-dnd/tree/master/dist) in the repo.  
-It exports `ReactDnD` (watch the casing!) and `ReactDnD.HTML5` for the [`HTML5` backend](docs-html5-backend.html).
+If you use [npm](http://npmjs.com):
+
+```
+npm install --save react-dnd
+npm install --save react-dnd-html5-backend
+```
+
+The npm packages default to the CommonJS build. However they also include pre-minified UMD builds in the `dist` folders. The UMD builds export global `window.ReactDnD` and `window.ReactDnDHTML5Backend` respectively.
+
+If you’d rather not use npm, you can use [npmcdn](http://npmcdn.com/) to access the UMD builds directly: [ReactDnD.min.js](https://npmcdn.com/react-dnd@latest/dist/ReactDnD.min.js) and [ReactDnDHTML5Backend.min.js](https://npmcdn.com/react-dnd-html5-backend@latest/dist/ReactDnDHTML5Backend.min.js). You may point your Bower config to them.
 
 ### How do I test React DnD components and their interaction?
 
@@ -75,7 +83,7 @@ Because [`DragSource`](docs-drag-source.html) and [`DropTarget`](docs-drop-targe
 ```js
 var DragSource = require('react-dnd').DragSource;
 var DropTarget = require('react-dnd').DropTarget;
-var flow = require('lodash/function/flow');
+var flow = require('lodash/flow');
 
 var YourComponent = React.createClass({
   /* ... */
@@ -89,7 +97,7 @@ module.exports = flow(
 -------------------
 ```js
 import { DragSource } from 'react-dnd';
-import flow from 'lodash/function/flow';
+import flow from 'lodash/flow';
 
 class YourComponent {
   /* ... */
@@ -114,12 +122,12 @@ export default class YourComponent {
 
 ### How do I register a drop target for the native files?
 
-If you are using the [`HTML5` backend](docs-html5-backend.html), you can register a drop target for one of the `NativeTypes` it exports:
+If you are using the [HTML5 backend](docs-html5-backend.html), you can register a drop target for one of the `NativeTypes` it exports:
 
 -------------------
 ```js
 var React = require('react');
-var NativeTypes = require('react-dnd/modules/backends/HTML5').NativeTypes;
+var NativeTypes = require('react-dnd-html5-backend').NativeTypes;
 var DropTarget = require('react-dnd').DropTarget;
 
 var fileTarget = {
@@ -155,7 +163,7 @@ module.exports = DropTarget(NativeTypes.FILE, fileTarget, function (connect, mon
 -------------------
 ```js
 import React, { Component } from 'react';
-import { NativeTypes } from 'react-dnd/modules/backends/HTML5';
+import { NativeTypes } from 'react-dnd-html5-backend';
 import { DropTarget } from 'react-dnd';
 
 const fileTarget = {
@@ -186,7 +194,7 @@ export default DropTarget(NativeTypes.FILE, fileTarget, (connect, monitor) => ({
 -------------------
 ```js
 import React, { Component } from 'react';
-import { NativeTypes } from 'react-dnd/modules/backends/HTML5';
+import { NativeTypes } from 'react-dnd-html5-backend';
 import { DropTarget } from 'react-dnd';
 
 const fileTarget = {
@@ -217,7 +225,7 @@ export default class FileDropZone extends Component {
 
 ### How do I write a custom backend?
 
-This is not currently documented, but you can take cues from the built-in [`HTML5`](docs-html5-backend.html) and [`Test`](docs-test-backend.html) backend implementations. The backend contract includes `setup()` and `teardown()` methods, and `connectDragSource()`, `connectDragPreview()` and `connectDropTarget()` methods that pass the DOM nodes to the backend. Contributions to the documentation are welcome.
+This is not currently documented, but you can take cues from the [HTML5](docs-html5-backend.html) and [Test](docs-test-backend.html) backend implementations. The backend contract includes `setup()` and `teardown()` methods, and `connectDragSource()`, `connectDragPreview()` and `connectDropTarget()` methods that pass the DOM nodes to the backend. Contributions to the documentation are welcome.
 
 ### I am getting a “Super expression must either be null or a function, not undefined” error
 
@@ -337,7 +345,7 @@ I know, it's only drag and drop, [but I like it](http://www.youtube.com/watch?v=
 
 ### What is the roadmap?
 
-The next big feature to be added is the support for the touch events backend. This is necessary to make React DnD work on mobile devices. I will be busy in June preparing for my [React Europe](https://www.react-europe.org/) talk, so expect the touch support to land in July or August.
+The library is pretty much complete, and there are no new big features planned. Most of the new development now occurs outside React DnD—for example, there is an ongoing work on [the touch backend](https://github.com/yahoo/react-dnd-touch-backend) for it.
 
 ### Who made it and why?
 
@@ -363,7 +371,5 @@ Porting the library to other modern frameworks such as Cycle, Mercury, or Deku, 
 Please let me know via the [issue tracker](https://github.com/gaearon/react-dnd/issues) if you create advanced examples such as a Kanban board application, or write a blog post or record a screencast about React DnD, so I can link to it.
 
 While DnD Core is fully tested, React DnD does not currently have any unit tests. Writing them is a great and eagerly desired contribution.
-
-Whether you are a company or an individual, if you enjoy using React DnD, consider donating to my PayPal address: `dan.abramov@me.com`. I left my full-time job to work on the open source projects. Your donations help me fund the current and the future development.
 
 ⚛

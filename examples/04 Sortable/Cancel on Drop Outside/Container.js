@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import update from 'react/lib/update';
 import Card from './Card';
 import { DropTarget, DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd/modules/backends/HTML5';
+import HTML5Backend from 'react-dnd-html5-backend';
 import ItemTypes from './ItemTypes';
 
 const style = {
@@ -81,7 +81,7 @@ export default class Container extends Component {
 
     return connectDropTarget(
       <div style={style}>
-        {cards.map((card, index) => {
+        {cards.map(card => {
           return (
             <Card key={card.id}
                   id={card.id}

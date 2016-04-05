@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ItemTypes from './ItemTypes';
 import { DragSource } from 'react-dnd';
 
@@ -21,14 +21,15 @@ const boxSource = {
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))
-export default class Box {
+export default class Box extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
     id: PropTypes.any.isRequired,
     left: PropTypes.number.isRequired,
     top: PropTypes.number.isRequired,
-    hideSourceOnDrag: PropTypes.bool.isRequired
+    hideSourceOnDrag: PropTypes.bool.isRequired,
+    children: PropTypes.node
   };
 
   render() {

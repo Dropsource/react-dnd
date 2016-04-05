@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react';
-import shouldPureComponentUpdate from './shouldPureComponentUpdate';
+import React, { Component, PropTypes } from 'react';
 import ItemTypes from './ItemTypes';
 import BoxDragPreview from './BoxDragPreview';
 import snapToGrid from './snapToGrid';
@@ -47,7 +46,7 @@ function getItemStyles(props) {
   currentOffset: monitor.getSourceClientOffset(),
   isDragging: monitor.isDragging()
 }))
-export default class CustomDragLayer {
+export default class CustomDragLayer extends Component {
   static propTypes = {
     item: PropTypes.object,
     itemType: PropTypes.string,
@@ -69,6 +68,8 @@ export default class CustomDragLayer {
       return (
         <BoxDragPreview title={item.title} />
       );
+    default:
+      return null;
     }
   }
 

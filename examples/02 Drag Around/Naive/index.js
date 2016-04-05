@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Container from './Container';
-import { Link } from 'react-router';
 
 export default class DragAroundNaive extends Component {
   constructor(props) {
@@ -41,7 +40,7 @@ export default class DragAroundNaive extends Component {
         <p>
           If we want to add custom logic such as snapping to grid or bounds checking, we can only do this on drop.
           There is no way for us to control what happens to dragged preview once the browser has drawn it.
-          Check out the <a href='/examples-drag-around-custom-drag-layer.html'>custom rendering example</a> if you'd rather trade more control for some more work.
+          Check out the <a href='examples-drag-around-custom-drag-layer.html'>custom rendering example</a> if you'd rather trade more control for some more work.
         </p>
         <Container hideSourceOnDrag={hideSourceOnDrag} />
         <p>

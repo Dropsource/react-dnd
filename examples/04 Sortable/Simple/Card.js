@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import ItemTypes from './ItemTypes';
 import { DragSource, DropTarget } from 'react-dnd';
 
@@ -21,54 +22,63 @@ const cardSource = {
 
 const cardTarget = {
   hover(props, monitor, component) {
-    const ownId = props.id;
-    const draggedId = monitor.getItem().id;
-    if (draggedId === ownId) {
+    const dragIndex = monitor.getItem().index;
+    const hoverIndex = props.index;
+
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
       return;
     }
 
-    const ownIndex = props.index;
-    const draggedIndex = monitor.getItem().index;
-  
-    // What is my rectangle on screen?
-    const boundingRect = React.findDOMNode(component).getBoundingClientRect();
-    // Where is the mouse right now?
+    // Determine rectangle on screen
+    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+
+    // Get vertical middle
+    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+    // Determine mouse position
     const clientOffset = monitor.getClientOffset();
-    // Where is my vertical middle?
-    const ownMiddleY = (boundingRect.bottom - boundingRect.top) / 2;
-    // How many pixels to the top?
-    const offsetY = clientOffset.y - boundingRect.top;
-  
-    // We only want to move when the mouse has crossed half of the item's height.
-    // If we're dragging down, we want to move only if we're below 50%.
-    // If we're dragging up, we want to move only if we're above 50%.
-  
-    // Moving down: exit if we're in upper half
-    if (draggedIndex < ownIndex && offsetY < ownMiddleY) {
+
+    // Get pixels to the top
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+    // Only perform the move when the mouse has crossed half of the items height
+    // When dragging downwards, only move when the cursor is below 50%
+    // When dragging upwards, only move when the cursor is above 50%
+
+    // Dragging downwards
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
       return;
     }
-  
-    // Moving up: exit if we're in lower half
-    if (draggedIndex > ownIndex && offsetY > ownMiddleY) {
+
+    // Dragging upwards
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-  
-    // Time to actually perform the action!
-    props.moveCard(draggedId, ownId);
+
+    // Time to actually perform the action
+    props.moveCard(dragIndex, hoverIndex);
+
+    // Note: we're mutating the monitor item here!
+    // Generally it's better to avoid mutations,
+    // but it's good here for the sake of performance
+    // to avoid expensive index searches.
+    monitor.getItem().index = hoverIndex;
   }
 };
 
 @DropTarget(ItemTypes.CARD, cardTarget, connect => ({
-  connectDropTarget: connect.dropTarget(),
+  connectDropTarget: connect.dropTarget()
 }))
 @DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))
-export default class Card {
+export default class Card extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
     isDragging: PropTypes.bool.isRequired,
     id: PropTypes.any.isRequired,
     text: PropTypes.string.isRequired,
